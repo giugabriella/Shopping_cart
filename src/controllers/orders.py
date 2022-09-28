@@ -21,8 +21,8 @@ async def orders_crud():
     order = None
     orderBuilder =  {
         "user": user["_id"],
-        "price": 0, #duvida: como passar a soma dos valores dos produtos inseridos no carrinho?
-        "address": "Rua Leg press, 45", #duvida: como passar o endereço vinculado ao usuário no carrinho carrinho?
+        "price": 0, 
+        "address": "Rua Leg press, 45", 
         "paid": False,
         "create": datetime.datetime.now(),
         "authority": ""
@@ -46,6 +46,7 @@ async def orders_crud():
             )
             print(order)
         elif option == '3':
+            #delete order
             if order != None:
                 result = await delete_order(
                     order_collection,
@@ -56,7 +57,7 @@ async def orders_crud():
                 print("Please search a Order first")
            
         elif option == '4':
-            '''add product to order'''
+            #add product to order
             order = await add_product(
                 order_item_collection,
                 int(input("Enter product code: ")),
@@ -64,7 +65,7 @@ async def orders_crud():
             )
             print(order)
         elif option == '5':
-            '''remove product from order'''
+            #remove product from order
             order = await remove_product(
                 order_item_collection,
                 int(input("Enter product code: ")),
@@ -72,7 +73,7 @@ async def orders_crud():
             )
             print("Produto removido!\n", order)
         elif option == '6':
-            '''calculate the total price of the order'''
+            #calculate the total price of the order
             print(order["price"])
         elif option == 'exit':
             break

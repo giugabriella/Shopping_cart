@@ -1,6 +1,5 @@
 
-from src.schemas.order import OrderSchema
-from src.server.database import connect_db, db, disconnect_db
+from src.server.database import db
 
 async def create_order(order_collection, order):
     try:

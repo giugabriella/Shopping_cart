@@ -5,15 +5,15 @@ from src.models.product import (
     delete_product
 )
 from src.server.database import connect_db, db, disconnect_db
-
+from bson.objectid import ObjectId
 
 async def products_crud():
     
     
     await connect_db()
     product_collection = db.product_collection
-
-    product =  [{
+    product = None
+    productBuilder =  [{
         "name": "Creatina",
         "description": "Pozinho dos Deuses",
         "price": 80.00,
@@ -31,28 +31,27 @@ async def products_crud():
             # create product
             products = await create_product(
                 product_collection,
-                product
+                productBuilder
             )
             print(products)
         elif option == '2':
             # get product
-            user = await get_product(
+            id = ObjectId(input("Enter the adress ID: "))
+            product = await get_product(
                 product_collection,
-                product["code"]
+                id
             )
-            print(user)
+            print(product)
         elif option == '3':
             # delete product
-            user = await get_product(
-                product_collection,
-                product["code"]
-            )
-
-            result = await delete_product(
-                product_collection,
-                product["code"]
-            )
-            print(result)
+            if product != None:
+                result = await delete_product(
+                    product_collection,
+                    product
+                )
+                print(result)
+            else:
+                print("Please search a product first")
         elif option == 'exit':
             break
  

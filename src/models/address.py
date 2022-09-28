@@ -1,14 +1,12 @@
-from src.schemas.address import AddressSchema
 
-from src.server.database import  db
 
 async def create_address(address_collection, address):
     try:
         address = await address_collection.insert_many(address)
-        prods = []
+        adrs = []
         for address in address:
             address = await get_address(address_collection, address.inserted_id)
-            prods.append (address)
+            adrs.append (address)
         return address
     except Exception as e:
         print(f'create_address.error: {e}')

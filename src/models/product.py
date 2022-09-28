@@ -14,17 +14,16 @@ async def create_product(product_collection, product: ProductSchema):
 
 async def get_product(product_collection, code):
     try:
-        data = await product_collection.find_one({code})
+        data = await product_collection.find_one({'_id': code})
         if data:
             return data
     except Exception as e:
         print(f'get_product.error: {e}')
 
-
-async def delete_product(product_collection, code):
+async def delete_product(product_collection, product):
     try:
         product = await product_collection.delete_one(
-            {'_id': code}
+            {'_id': product['_id']}
         )
         if product.deleted_count:
             return {'status': 'Product deleted'}

@@ -42,6 +42,7 @@ async def address_crud():
             )
             print(address)
         elif option == '3':
+            #delete address
             if address != None:
                 result = await delete_address(
                     address_collection,
@@ -51,6 +52,7 @@ async def address_crud():
             else:
                 print("Please search a Order first")
         elif option == '4': 
+            #list address
             result = await get_all_addresses(
                 address_collection,
                 user['_id'],
